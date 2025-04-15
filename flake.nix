@@ -9,9 +9,7 @@
   outputs = { self, nixpkgs, flake-utils, ... }:
     flake-utils.lib.eachDefaultSystem (system:
       let
-        pkgs = import nixpkgs {
-          inherit system;
-        };
+        pkgs = import nixpkgs { inherit system; };
 
         #for packages not in nixpkgs writre the requirements.txt and 
         #then do the below command before starting the shell(nix develop)
@@ -28,6 +26,12 @@
               
               ]))
           ];
+          shellHook = ''
+          echo "You have entered a shell environment created by https://github.com/vivekanandan-ks"
+          echo "This shell environment sets up all the dependencies for the python project down to the libraries needed."
+          echo "Enjoy coding :-)"
+
+          ''
         };
       }
     );
