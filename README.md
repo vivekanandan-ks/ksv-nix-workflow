@@ -27,7 +27,7 @@ For others, follow steps
      nix-shell -p git --command "git clone https://github.com/vivekanandan-ks/ksv-fastapi-nix-shell.git"
      cd ksv-fastapi-nix-shell
      ```
-     Dont worry this installs git temporarily in the shell😃, runs the commands and exits the shell😊. Now ur system doesn't have git installed in ur system which avoids polluting ur system environment💪😎. 
+     Dont worry this installs git temporarily in the shell😃, runs the commands and exits the shell😊. Now ur system doesn't have git installed, which avoids polluting ur system environment💪😎. 
      It's Cool, isn't it?😁😁😁
 
 
