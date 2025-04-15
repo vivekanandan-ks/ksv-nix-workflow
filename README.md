@@ -37,6 +37,7 @@ For others, follow steps
      nix develop
      ```
    - This command reads the configuration from `flake.nix` to set up the environment automatically💪
+   - That's it. U can now confidently say "It works on my machine"😁😁
 
 
 ## Usage
