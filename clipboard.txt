@@ -1,0 +1,50 @@
+installPhase = ''
+            mkdir -p $out/bin
+            cp -r app $out/
+            
+            # Create a wrapper script that runs the application
+            cat > $out/bin/start-app <<EOF
+            #!${pkgs.bash}/bin/bash
+            export PYTHONPATH=$out:${python}/${python.sitePackages}
+            exec ${python}/bin/python -m uvicorn app.main:app --host 0.0.0.0 --port 8000
+            EOF
+            
+            chmod +x $out/bin/start-app
+          '';
+
+installPhase = ''
+    mkdir -p $out/app
+    cp -r app $out/app
+    mkdir -p $out/bin
+    cat > $out/bin/start-app <<EOF
+    #!${pkgs.bash}/bin/bash
+    exec python $out/app/main.py
+    EOF
+    chmod +x $out/bin/start-app
+  '';
+
+
+  # Docker image configuration
+        dockerImage = pkgs.dockerTools.buildImage {
+          name = "my-python-app";
+          tag = "v0.1.0";
+          
+          # Copy the application and its dependencies
+          copyToRoot = pkgs.buildEnv {
+            name = "image-root";
+            paths = [
+              myApp
+              python
+              pkgs.bash
+            ];
+            pathsToLink = [ "/bin" "/" ];
+          };
+          
+          # Configuration
+          config = {
+            Cmd = [ "${myApp}/bin/start-app" ];
+            ExposedPorts = {
+              "8000/tcp" = {};
+            };
+          };
+        };
