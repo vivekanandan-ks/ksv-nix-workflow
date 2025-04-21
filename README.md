@@ -3,7 +3,7 @@
 ## Introduction
 ksv-fastapi-nix-shell is a project designed to demonstrate how quickly you can configure a complete development environment with just few commands in just few minutes or even seconds using `nix`😊. This setup ensures consistency😄 and removes the manual overhead😮‍💨 of configuring dependencies which might requires hours or days of time setting up everything imperatively.
 
-##TLDR:
+## TLDR:
 Just 3 steps:
 1) Clone the repo and enter the folder
 2) Run just one command to either
