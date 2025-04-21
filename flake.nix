@@ -58,9 +58,9 @@
 
         packages = {
           python-app = myApp;
-          #ocker = dockerImage; #plannning to build next
-        }
+          docker = dockerImage; #plannning to build next
+        };
 
-      }
+      };
     );
 }
