@@ -47,20 +47,32 @@
         
       in {
         devShells.default = pkgs.mkShell {
-          packages = pythonEnv;
+          packages = [
+            pythonEnv
+          ];
+#          shellHook = ''
+#              ${pkgs.lolcat}/bin/lolcat <<EOF
+#                You have entered a shell environment created by https://github.com/vivekanandan-ks
+#                This shell environment sets up all the dependencies for the python project down to the libraries needed.
+#                Enjoy coding :-)
+#              EOF
+#              #| echo "Setting up..." | pv -qL 10 | figlet | lolcat
+#${pkgs.pv}/bin/pv -qL 20
+#          '';
+
           shellHook = ''
-          echo "You have entered a shell environment created by https://github.com/vivekanandan-ks"
-          echo "This shell environment sets up all the dependencies for the python project down to the libraries needed."
-          echo "Enjoy coding :-)"
-
+              echo -e "You have entered a shell environment created by https://github.com/vivekanandan-ks. \n\
+              This shell environment sets up all the dependencies for the python project down to the libraries needed. \n\
+              Enjoy coding :-) moooooooooooooooo" | ${pkgs.cowsay}/bin/cowsay | ${pkgs.lolcat}/bin/lolcat
           '';
+
         };
 
-        packages = {
+        packages.${system} = {
           python-app = myApp;
-          docker = dockerImage; #plannning to build next
+          #docker = dockerImage; #plannning to build next
         };
 
-      };
+      }
     );
 }
