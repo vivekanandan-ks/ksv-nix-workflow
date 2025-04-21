@@ -53,7 +53,7 @@
           echo "This shell environment sets up all the dependencies for the python project down to the libraries needed."
           echo "Enjoy coding :-)"
 
-          ''
+          '';
         };
 
         packages = {
