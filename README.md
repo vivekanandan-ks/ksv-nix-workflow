@@ -3,13 +3,22 @@
 ## Introduction
 ksv-fastapi-nix-shell is a project designed to demonstrate how quickly you can configure a complete development environment with just few commands in just few minutes or even seconds using `nix`😊. This setup ensures consistency😄 and removes the manual overhead😮‍💨 of configuring dependencies which might requires hours or days of time setting up everything imperatively.
 
+##TLDR:
+Just 3 steps:
+1) Clone the repo and enter the folder
+2) Run just one command to either
+   - Start a development environment shell (or)
+   - Run the application directly
+3) Chill out🤟, while nix does the magic
+     
 ## Installation
 # Supported Platforms:
     any Linux or Unix based distro, macOS, Windows(WSL)
 
-If u are already using the NixOS❤️🔥🔥🔥 skip step1.
-For others, follow steps
-1. **Install Nix:**
+##Prequisites
+If u are already using the NixOS❤️🔥🔥🔥 skip this. Btw, I suggest everyone to try this OG🔥 Distro😁
+For others,
+**Install Nix:**
     -   Install nix via a single command. For details: https://zero-to-nix.com/start/install/
 
         ```
@@ -18,9 +27,11 @@ For others, follow steps
 
     -   Restart the terminal session and check Nix with 
         ```nix --version```
-    Now we can do things a lot easier🥳🎉🎊
+    Now we can do things a lot easier🥳🎉🎊. 
+    Spoiler🤫: U have installed something really extraordinary.
 
-2. **Clone the Repository:**
+##Steps:
+1. **Clone the Repository:**
     Fun fact: U don't even need to install git manually as a prequisite in ur system to do the following commands😏. Leave it to nix.
    - Run:
      ```
@@ -28,17 +39,25 @@ For others, follow steps
      cd ksv-fastapi-nix-shell
      ```
      Dont worry this installs git temporarily in the shell😃, runs the commands and exits the shell😊. Now ur system doesn't have git installed, which avoids polluting ur system environment💪😎. 
-     It's Cool, isn't it?😁😁😁
+     It's super Cool, isn't it?😁😁😁
 
 
-3. **Enter the Development Environment:**
+2. ##Now u can:
+   a) **Enter the Development Environment:**🙌🙌
    - Simply execute:
      ```
      nix develop
      ```
    - This command reads the configuration from `flake.nix` to set up the environment automatically💪
-   - That's it. U can now confidently say "It works on my machine"😁😁. Not a joke.😏
+   - U can now start working on ur project without wasting hours or days.
 
+   b) **Run the program directly:**😎😎(Yup like a docker but without the overhead😮‍💨)
+   - Simply execute:
+     ```
+     nix run
+     ```
+     - This command just built the app and started running it.
+     - Now u can confidently say "It works on my machine"😁😁. Not a joke.😏
 
 ## Usage
 
