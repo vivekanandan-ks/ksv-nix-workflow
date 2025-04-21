@@ -30,35 +30,20 @@
           # Install phase: copy the Python files to the output
           installPhase = ''
             mkdir -p $out/app
-            cp -r app $out/app
+            cp -r app $out/
             mkdir -p $out/bin
             cat > $out/bin/start-app <<EOF
             #!${pkgs.bash}/bin/bash
-            exec python $out/app/main.py
+            exec ${pythonEnv.interpreter} $out/app/main.py
             EOF
             chmod +x $out/bin/start-app
           '';
         };
 
-
-
-
-
-        
-      in {
-        devShells.default = pkgs.mkShell {
+        myShell = pkgs.mkShell {
           packages = [
             pythonEnv
           ];
-#          shellHook = ''
-#              ${pkgs.lolcat}/bin/lolcat <<EOF
-#                You have entered a shell environment created by https://github.com/vivekanandan-ks
-#                This shell environment sets up all the dependencies for the python project down to the libraries needed.
-#                Enjoy coding :-)
-#              EOF
-#              #| echo "Setting up..." | pv -qL 10 | figlet | lolcat
-#${pkgs.pv}/bin/pv -qL 20
-#          '';
 
           shellHook = ''
               echo -e "You have entered a shell environment created by https://github.com/vivekanandan-ks. \n\
@@ -68,9 +53,20 @@
 
         };
 
-        packages.${system} = {
-          python-app = myApp;
+
+
+        
+      in {
+        devShells.default = myShell;
+
+        packages = {
+          default = myApp;
           #docker = dockerImage; #plannning to build next
+        };
+
+        apps.default = {
+          type = "app";
+          program = "${myApp}/bin/start-app";
         };
 
       }
