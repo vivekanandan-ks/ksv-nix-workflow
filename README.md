@@ -9,7 +9,7 @@ Just 3 steps:
 2) Run just one command to either
    - Start a development environment shell (or)
    - Run the application directly
-3) Chill out🤟, while nix does the magic
+3) Chill out🤟, while nix and my configuration does the heavylifting🤝
      
 ## Installation
 # Supported Platforms:
