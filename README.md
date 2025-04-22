@@ -15,7 +15,7 @@ Just 3 steps:
 # Supported Platforms:
     any Linux or Unix based distro, macOS, Windows(WSL)
 
-##Prequisites
+## Prequisites
 If u are already using the NixOS❤️🔥🔥🔥 skip this. Btw, I suggest everyone to try this OG🔥 Distro😁
 For others,
 **Install Nix:**
@@ -26,7 +26,7 @@ For others,
     Now we can do things a lot easier🥳🎉🎊. 
     Spoiler🤫: U have installed something really extraordinary.
 
-##Steps:
+## Steps:
 1. **Clone the Repository:**
     Fun fact: U don't even need to install git manually as a prequisite in ur system to do the following commands😏. Leave it to nix.
    - Run:
@@ -38,27 +38,23 @@ For others,
      It's super Cool, isn't it?😁😁😁
 
 
-2. ##Now u can:
+2. ## Now u can:
    a) **Enter the Development Environment:**🙌🙌
    - Simply execute:
-     ```
-     nix develop
-     ```
+     ```nix develop```
    - This command reads the configuration from `flake.nix` to set up the environment automatically💪
    - U can now start working on ur project without wasting hours or days.
 
    b) **Run the program directly:**😎😎(Yup like a docker but without the overhead😮‍💨)
    - Simply execute:
-     ```
-     nix run
-     ```
+     ```nix run```
      - This command just built the app and started running it.
      - Now u can confidently say "It works on my machine"😁😁. Not a joke.😏
 
 ## Usage
 
 - **Starting Up:**
-  - After running `nix develop`, your environment is fully prepared🥳💪.
+  - After running ```nix develop```, your environment is fully prepared🥳💪.
   - Begin working on your project without additional configuration.
   - The first time u run the command nix builds the environment and caches it✍️📥. So the consequent start
     of the shells will be instantaneous⚡🚀
