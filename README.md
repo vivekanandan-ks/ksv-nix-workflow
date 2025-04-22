@@ -20,9 +20,13 @@ If u are already using the NixOS❤️🔥🔥🔥 skip this. Btw, I suggest eve
 For others,
 **Install Nix:**
    -Install nix via a single command. For details: https://zero-to-nix.com/start/install/
-        ```curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install```
+        ```
+        curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
+        ```
    -Restart the terminal session and check Nix with 
-        ```nix --version```
+        ```
+        nix --version
+        ```
     Now we can do things a lot easier🥳🎉🎊. 
     Spoiler🤫: U have installed something really extraordinary.
 
@@ -41,20 +45,24 @@ For others,
 2. ## Now u can:
    a) **Enter the Development Environment:**🙌🙌
    - Simply execute:
-     ```nix develop```
+     ```
+     nix develop .
+     ```
    - This command reads the configuration from `flake.nix` to set up the environment automatically💪
    - U can now start working on ur project without wasting hours or days.
 
    b) **Run the program directly:**😎😎(Yup like a docker but without the overhead😮‍💨)
    - Simply execute:
-     ```nix run```
+     ```
+     nix run .
+     ```
      - This command just built the app and started running it.
      - Now u can confidently say "It works on my machine"😁😁. Not a joke.😏
 
 ## Usage
 
 - **Starting Up:**
-  - After running ```nix develop```, your environment is fully prepared🥳💪.
+  - After running ```nix develop .```, your environment is fully prepared🥳💪.
   - Begin working on your project without additional configuration.
   - The first time u run the command nix builds the environment and caches it✍️📥. So the consequent start
     of the shells will be instantaneous⚡🚀
