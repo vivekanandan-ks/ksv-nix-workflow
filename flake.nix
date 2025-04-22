@@ -53,22 +53,28 @@
 
         };
 
-
-
+        dockerLayeredImage = pkgs.dockerTools.buildLayeredImage {
+          name = "my-python-app";
+          tag = "latest";
+          contents = [ myApp ];
+          config = {
+            Cmd = [ "/bin/start-app" ];
+            WorkingDir = "/app";
+          };
+        };
         
       in {
         devShells.default = myShell;
 
-        packages = {
+        packages = { 
           default = myApp;
-          #docker = dockerImage; #plannning to build next
+          dockerLayered = dockerLayeredImage;
         };
 
         apps.default = {
           type = "app";
           program = "${myApp}/bin/start-app";
-        };
-
+        };      
       }
     );
 }
