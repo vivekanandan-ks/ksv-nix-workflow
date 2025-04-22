@@ -20,15 +20,16 @@ If u are already using the NixOS❤️🔥🔥🔥 skip this. Btw, I suggest eve
 For others,
 **Install Nix:**
    -Install nix via a single command. For details: https://zero-to-nix.com/start/install/
-        ```
-        curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
-        ```
+   ```
+      curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
+   ```
    -Restart the terminal session and check Nix with 
-        ```
-        nix --version
-        ```
-    Now we can do things a lot easier🥳🎉🎊. 
-    Spoiler🤫: U have installed something really extraordinary.
+   ```
+      nix --version
+   ```
+
+   Now we can do things a lot easier🥳🎉🎊. 
+   Spoiler🤫: U have installed something really extraordinary.
 
 ## Steps:
 1. **Clone the Repository:**
