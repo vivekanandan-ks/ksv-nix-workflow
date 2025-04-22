@@ -98,11 +98,11 @@ For others,
       ```
 
 ## Why This Is Awesome🌟🔥💯
-   - Reproducible dev & deploy environments. The development setup guarantees that all dependencies and tools are the same across different machines.🤘😁
-   - Minimal dependencies on system tools
-   - Instant shell provisioning with exact versions
-   - Zero Dockerfile or virtualenv required
-   - Confidently say "it works on my machine"
+   - Reproducible dev environments.🔄💻 The development setup guarantees that all dependencies and tools are the same across different machines.🤘😁
+   - Minimal dependencies on system tools🔥
+   - Instant shell provisioning with exact versions💯
+   - Zero Dockerfile or virtualenv required🌟
+   - Confidently say "it works on my machine"😏
 
 ## Notes📝📌:
 This project showcases my growing expertise in Nix, DevOps, and reproducible development practices. 
@@ -115,5 +115,4 @@ This project is meant to demonstrate my understanding and skills of nix, DevOps 
 Created this project to start showing my skills and learnings, coz Actions > Thoughts. 
 And more importantly for the love of Nix, NixOS, Nixpkgs, etc from the nix ecosystem. It's the most innovative and awesome project impressed me so far after Linux, FOSS, community-driven efforts. Check Nix out, it isn't that hard. The documentation and the right way to do things keep improving faster.
 
-  Feel free to share ur coments or improvements in issues.
-  - 
+Feel free to share ur coments or improvements in issues.☺️☺️☺️
