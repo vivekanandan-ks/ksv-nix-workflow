@@ -1,7 +1,7 @@
-# ksv-fastapi-nix-shell
+# ksv-nix-workflow
 
 ## Introduction
-ksv-fastapi-nix-shell is a project designed to demonstrate how quickly you can configure a complete development environment with just few commands in just few minutes or even seconds using `nix`😊. This setup ensures consistency and removes the manual overhead😮‍💨 of configuring dependencies which might requires hours or days of time setting up everything imperatively.
+ksv-nix-workflow is a project designed to demonstrate how quickly you can configure a complete development environment in just few minutes or even seconds using `nix`😊. This setup ensures consistency and removes the manual overhead😮‍💨 of configuring dependencies which might requires hours or days of time setting up everything imperatively. Also u can pack this environment for building the package and even in docker image for consistent workflow without managing everything separately. (Of course u can still customise it anyway too, coz it's nix)
 
 ## TLDR:
 Just 3 steps:
