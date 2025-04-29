@@ -4,7 +4,17 @@ app = FastAPI()
 
 @app.get("/")
 async def hello_world():
-    return {"message": "Hello World"}
+    return """
+    <html>
+        <head>
+            <title>Hello</title>
+        </head>
+        <body>
+            <h1>Hello, World!</h1>
+            <p>This is an HTML response from FastAPI.</p>
+        </body>
+    </html>
+    """
 
 if __name__ == "__main__":
     import uvicorn
