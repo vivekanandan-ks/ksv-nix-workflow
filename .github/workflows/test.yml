@@ -18,4 +18,4 @@ jobs:
         # If you chose API tokens for write access OR if you have a private cache
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
     - run: nix build .
-    - run: nix develop --command "python --version"
+    - run: nix develop --command "python3 --version"
