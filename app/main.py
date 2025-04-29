@@ -12,6 +12,7 @@ async def hello_world():
         <body>
             <h1>Hello, World!</h1>
             <p>This is an HTML response from FastAPI.</p>
+            <p>haha hehe haha hehe</p>
         </body>
     </html>
     """
