@@ -18,5 +18,18 @@ jobs:
         name: ksvnixcachix
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
     - run: echo "Branch name is ${{ github.ref }}"
-    - run: nix build .
-    - run: nix develop --command python3 --version
+    - name: Shell check
+      run: nix develop --command python3 --version
+    - name: Build check
+      run: nix build .
+    - name: Docker Build
+      run: nix build .#dockerLayered
+    - name: image push to ghcr with skopeo
+      if: success() && github.event_name == 'push'
+      run: |
+            nix shell nixpkgs#skopeo --command \
+              skopeo copy \
+              --dest-creds ${{ github.actor }}:${{ secrets.GHCR_TOKEN }} \
+              --format=oci \
+              docker-archive:result \
+              docker://ghcr.io/${{ github.actor }}/ksv-nix-workflow:latest
