@@ -24,15 +24,11 @@ jobs:
       run: nix build .
     - name: Docker Build
       run: nix build .#dockerLayered
-    - name: OCI formatting
-      run: |
-            mkdir -p oci-image
-            cp -r result/* oci-image/
     - name: image push to ghcr with skopeo
       if: success() && github.event_name == 'push'
       run: |
-            nix shell -p nixpkgs#skopeo --command \
+            nix shell nixpkgs#skopeo --command \
               skopeo copy \
               --dest-creds ${{ github.actor }}:${{ secrets.GITHUB_TOKEN }} \
-              oci:oci-image \
+              docker-archive:result \
               ghcr://ghcr.io/${{ github.repository_owner }}/${{ github.repository }}:${{ github.repository }}-${{ github.sha }}
