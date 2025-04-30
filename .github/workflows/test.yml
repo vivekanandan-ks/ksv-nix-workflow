@@ -29,8 +29,7 @@ jobs:
       run: |
             nix shell nixpkgs#skopeo --command \
               skopeo copy \
-              --dest-creds ${{ github.actor }}:${{ secrets.GITHUB_TOKEN }} \
+              --dest-creds ${{ github.actor }}:${{ secrets.GHCR_TOKEN }} \
               --format=oci \
               docker-archive:result \
               docker://ghcr.io/${{ github.actor }}/ksv-nix-workflow:latest
-              
