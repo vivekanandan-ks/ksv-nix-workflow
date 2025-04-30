@@ -17,6 +17,6 @@ jobs:
       with:
         name: ksvnixcachix
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
-    - run: echo "Branch name: ${{ github.ref_name }}"
+    - run: echo "Branch name is ${{ github.ref }}"
     - run: nix build .
     - run: nix develop --command python3 --version
