@@ -23,11 +23,11 @@ jobs:
     - name: Build check
       run: nix build .
     - name: Docker Build
-      run: nix build .#dockerImage
+      run: nix build .#dockerLayered
     - name: OCI formatting
       run: |
-          mkdir oci-image
-          nix shell -p nixpkgs#tar --command tar -xf result -C oci-image
+            mkdir -p oci-image
+            cp -r result/* oci-image/
     - name: image push to ghcr with skopeo
       if: success() && github.event_name == 'push'
       run: |
