@@ -30,5 +30,6 @@ jobs:
             nix shell nixpkgs#skopeo --command \
               skopeo copy \
               --dest-creds ${{ github.actor }}:${{ secrets.GITHUB_TOKEN }} \
+              --format=oci \
               docker-archive:result \
-              docker://ghcr.io/my-nix-docker-build:latest
+              docker://ghcr.io/${{ github.repository_owner }}/my-nix-docker-build:${{ github.ref }}
