@@ -32,5 +32,5 @@ jobs:
               --dest-creds ${{ github.actor }}:${{ secrets.GITHUB_TOKEN }} \
               --format=oci \
               docker-archive:result \
-              docker://ghcr.io/vivekanandan-ks/ksv-nix-workflow:latest
+              docker://ghcr.io/${{ github.actor }}/ksv-nix-workflow:latest
               
