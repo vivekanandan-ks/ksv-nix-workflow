@@ -5,8 +5,9 @@ on:
   workflow_dispatch:     # Allow manual triggering
 
 permissions:
-  contents: write
-  pull-requests: write
+  contents: write       # Needed for checkout and committing changes
+  pull-requests: write  # Needed for creating PRs
+  issues: write         # Needed for labeling (labels are tied to issues and PRs)
 
 jobs:
   flake-update:
