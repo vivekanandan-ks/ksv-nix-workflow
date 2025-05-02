@@ -50,7 +50,7 @@ jobs:
         commit-message: "Periodic Auto flake update"
         title: "flake.lock update"
         body: "Automated update of Nix flake inputs (tests passed ✅)"
-        branch: "auto-flake-update-$(TZ=Asia/Kolkata date +%Y-%m-%d-%H-%M-%S)"  # Unique branch name
+        branch: "auto-flake-update-$(TZ=Asia/Kolkata date +%Y%m%d%H%M%S)"  # Unique branch name
         delete-branch: true  # Clean up merged branches on next action run
         labels: "automated,dependencies"
 
