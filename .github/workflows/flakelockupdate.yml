@@ -41,7 +41,12 @@ jobs:
         git add flake.lock
         git status
     
-    #PR CREATION
+    - name: Generate timestamp
+      id: timestamp
+      run: |
+            echo "branch_name=auto-flake-update-$(TZ=Asia/Kolkata date +%Y%m%d%H%M%S)" >> $GITHUB_OUTPUT
+
+#PR CREATION    
     - name: Create Pull Request
       id: cpr
       if: success() && github.event_name != 'pull_request'
@@ -50,7 +55,7 @@ jobs:
         commit-message: "Periodic Auto flake update"
         title: "flake.lock update"
         body: "Automated update of Nix flake inputs (tests passed ✅)"
-        branch: "auto-flake-update-$(TZ=Asia/Kolkata date +%Y%m%d%H%M%S)"  # Unique branch name
+        branch: "auto-flake-update-${{ steps.timestamp.outputs.timestamp }}"  # Unique branch name
         delete-branch: true  # Clean up merged branches on next action run
         labels: "automated,dependencies"
 
