@@ -1,0 +1,47 @@
+nix build .#dockerLayered && \
+docker load < result && \
+docker run --rm -p 8000:8000 my-python-app:latest
+
+gh release create v0.2.0 --title "Added Docker Image Build🎉" --notes "✅ Features:
+                                                     - Development environment, building and running the app
+                                                     - OCI compatible DockerImage creation
+                                                     - Clean README"
+
+gh release create v0.3.0 --title "Added Github Actions workflow😄, Cachix🗃️🗄️, DockerImage➡️GHCR🎉" --notes "✅ Features:
+                                                     - Automated github workflow on certain triggers
+                                                     - Added cachix for Nix binary Cache
+                                                     - pushing the built OCI image to GHCR"
+
+git-town hack feat/13-oci-vuln-scan
+
+- name: Run Trivy vulnerability scanner
+  uses: aquasecurity/trivy-action@master
+  with:
+    image-ref: 'your-image:tag'
+    format: 'table'
+    exit-code: '1'
+    ignore-unfixed: true
+    severity: 'CRITICAL,HIGH'
+
+- name: Run Advanced Trivy vulnerability scanner
+  uses: aquasecurity/trivy-action@master
+  with:
+    image-ref: 'your-image:${{ github.sha }}'
+    format: 'sarif'
+    output: 'trivy-results.sarif'
+    severity: 'CRITICAL,HIGH,MEDIUM'
+    exit-code: '1'
+    ignore-unfixed: true
+    vuln-type: 'os,library'
+
+    # Performance optimization
+    cache-dir: '.trivy-cache'
+    
+    # Timeout configuration for large images
+    timeout: '5m'
+    
+    # Additional security checks
+    security-checks: 'vuln,config,secret'
+    
+    # Ignore certain vulnerabilities (customize as needed)
+    ignorefile: '.trivyignore'
