@@ -1,0 +1,10 @@
+
+- name: image push to ghcr with skopeo
+if: success() && github.event_name == 'push'
+run: |
+      nix shell nixpkgs#skopeo --command \
+        skopeo copy \
+        --dest-creds ${{ github.actor }}:${{ secrets.GHCR_TOKEN }} \
+        --format=oci \
+        docker-archive:result \
+        docker://ghcr.io/${{ github.actor }}/ksv-nix-workflow:${{ github.sha }}
