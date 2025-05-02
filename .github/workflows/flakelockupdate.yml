@@ -1,0 +1,60 @@
+name: "Flake Update"
+on:
+  schedule:
+    - cron: '0 13 * * 1'  # Runs at 13:00 (noon) every Monday
+  workflow_dispatch:     # Allow manual triggering
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  flake-update:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Install Nix
+      uses: cachix/install-nix-action@v25
+      with:
+        nix_path: nixpkgs=channel:nixos-24.11
+
+    - run: echo "Branch name is ${{ github.ref }}"
+    
+    # Test
+    - name: Update flake inputs
+      run: nix flake update
+
+    - run: nix flake check
+
+    - name: Shell check
+      run: nix build .#devShells.x86_64-linux.default --dry-run
+
+    - name: Build check
+      run: nix build . --dry-run
+
+    - name: OCI image Build check
+      run: nix build .#dockerLayered --dry-run
+    
+    #PR CREATION
+    - name: Create Pull Request
+      id: cpr
+      if: success() && github.event_name != 'pull_request'
+      uses: peter-evans/create-pull-request@v7
+      with:
+        commit-message: "Periodic Auto flake update"
+        title: "flake.lock update"
+        body: "Automated update of Nix flake inputs (tests passed ✅)"
+        branch: "auto-flake-update-$(TZ=Asia/Kolkata date +%Y-%m-%d-%H-%M-%S)"  # Unique branch name
+        #Only include flake.lock in the commit
+        path: |
+            flake.lock
+        delete-branch: true  # Clean up merged branches on next action run
+        labels: "automated,dependencies"
+
+#check PR outputs
+    - name: Check outputs
+      if: steps.cpr.outputs.pull-request-number  # Checks if PR was created
+      run: |
+        echo "Pull Request Number - ${{ steps.cpr.outputs.pull-request-number }}"
+        echo "Pull Request URL - ${{ steps.cpr.outputs.pull-request-url }}"
