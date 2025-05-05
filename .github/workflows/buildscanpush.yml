@@ -96,12 +96,6 @@ jobs:
             --ignorefile .trivyignore \
             --no-progress \
             --skip-db-update #--offline-scan
-    
-      - name: Combine SARIF files
-        uses: advanced-security/combine-sarif@v1
-        with:
-          input_folder: trivy-reports/
-          output_file: combined-results.sarif
 
       - name: Upload combined SARIF files for GitHub Security Tab
         uses: github/codeql-action/upload-sarif@v3
