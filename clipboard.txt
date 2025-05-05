@@ -12,6 +12,13 @@ gh release create v0.3.0 --title "Added Github Actions workflow😄, Cachix🗃�
                                                      - Added cachix for Nix binary Cache
                                                      - pushing the built OCI image to GHCR"
 
+gh release create v0.4.0 --title "Added Auto flake lockfile update in repo🎉" --notes "✅ Features:
+                                                     - Periodic auto flake lockfile update
+                                                     - More faster test checks"
+
+
+
+
 git-town hack feat/13-oci-vuln-scan
 
 - name: Run Trivy vulnerability scanner
