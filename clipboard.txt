@@ -18,9 +18,6 @@ gh release create v0.4.0 --title "Added Auto flake lockfile update in repo🎉" 
 
 
 
-
-git-town hack feat/13-oci-vuln-scan
-
 - name: Run Trivy vulnerability scanner
   uses: aquasecurity/trivy-action@master
   with:
@@ -52,3 +49,16 @@ git-town hack feat/13-oci-vuln-scan
     
     # Ignore certain vulnerabilities (customize as needed)
     ignorefile: '.trivyignore'
+
+nix run nixpkgs#trivy -- \
+image \
+--input result \
+--scanners vuln \
+--severity CRITICAL,HIGH \
+--exit-code 1 \
+--ignore-unfixed \ 
+--format sarif \
+--output trivy-vuln.sarif \
+--timeout 5m \
+--cache-dir .trivycache \
+#--skip-db-update --offline-scan
