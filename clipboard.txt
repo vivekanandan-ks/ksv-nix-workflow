@@ -62,3 +62,14 @@ image \
 --timeout 5m \
 --cache-dir .trivycache \
 #--skip-db-update --offline-scan
+
+############# FULL SCAN #################
+nix run nixpkgs#trivy -- \
+image \
+--input result \
+--scanners vuln,config,secret \
+--severity CRITICAL,HIGH,MEDIUM,LOW \
+--ignore-unfixed \ 
+--format table \
+--output full-scan.txt \
+--timeout 5m
