@@ -50,7 +50,7 @@ jobs:
 #PR CREATION    
     - name: Create Pull Request
       id: cpr
-      if: success() && github.event_name != 'pull_request'
+      if: success() ## && github.event_name != 'pull_request'
       uses: peter-evans/create-pull-request@v7
       with:
         commit-message: "Periodic Auto flake update"
