@@ -1,4 +1,7 @@
 name: Update Trivy DB Cache
+permissions:
+  contents: read
+  pull-requests: write
 
 on:
   schedule:
