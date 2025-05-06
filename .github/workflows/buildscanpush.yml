@@ -18,7 +18,7 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-    
+# Setup    
       - name: Setup Nix
         uses: cachix/install-nix-action@v25
         with:
@@ -37,7 +37,7 @@ jobs:
             key: trivy-db-cache
             restore-keys: |
                 trivy-db-cache-
-      
+# Build      
       - name: Build OCI image
         run: |
           nix build .#dockerLayered
@@ -45,7 +45,7 @@ jobs:
       - name: Create Trivy output directory
         run: |
           mkdir -p trivy-reports
-
+# Scan
       - name: Trivy Vuln scan
         run: |
             nix run nixpkgs#trivy -- \
@@ -101,9 +101,35 @@ jobs:
         uses: github/codeql-action/upload-sarif@v3
         with:
             sarif_file: trivy-reports/
-
+# Scan reports upload
       - name: Upload raw sarif reports as artifact
         uses: actions/upload-artifact@v4
         with:
             name: trivy-reports
             path: trivy-reports/
+
+# Inspect image size and push
+      - name: Skopeo inspect image
+        if: success() && github.event_name == 'push'
+        run: |
+          nix shell nixpkgs#skopeo --command \
+            skopeo inspect docker-archive:result > image_metadata.json
+      - name: Check image size - fail if too large
+        if: success() && github.event_name == 'push'
+        run: |
+          IMAGE_SIZE=$(jq '.LayersData | map(.Size) | add' image_metadata.json)
+          if [ $IMAGE_SIZE -gt 500000000 ]; then
+            echo "Image exceeds 500MB limit. Please optimize."
+            exit 1
+          fi
+
+# Push to ghcr
+      - name: image push to ghcr with skopeo
+        if: success() && github.event_name == 'push'
+        run: |
+              nix shell nixpkgs#skopeo --command \
+                skopeo copy \
+                --dest-creds ${{ github.actor }}:${{ secrets.GHCR_TOKEN }} \
+                --format=oci \
+                docker-archive:result \
+                docker://ghcr.io/${{ github.actor }}/ksv-nix-workflow:${{ github.sha }}
