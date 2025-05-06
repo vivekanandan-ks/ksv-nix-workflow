@@ -48,8 +48,8 @@ jobs:
 # Scan
       - name: Trivy Vuln scan
         run: |
-            nix run nixpkgs#trivy -- \
-            image \
+            nix shell nixpkgs#trivy --command \
+            trivy image \
             --input result \
             --scanners vuln \
             --severity CRITICAL,HIGH \
@@ -65,8 +65,8 @@ jobs:
     
       - name: Trivy Secret scan
         run: |
-            nix run nixpkgs#trivy -- \
-            image \
+            nix shell nixpkgs#trivy --command \
+            trivy image \
             --input result \
             --scanners secret \
             --severity CRITICAL,HIGH,MEDIUM \
@@ -82,8 +82,8 @@ jobs:
         
       - name: Trivy Config scan
         run: |
-            nix run nixpkgs#trivy -- \
-            image \
+            nix shell nixpkgs#trivy --command \
+            trivy image \
             --input result \
             --scanners config \
             --severity CRITICAL,HIGH,MEDIUM \
