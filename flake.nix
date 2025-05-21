@@ -65,7 +65,7 @@
           shellHook = ''
             ${install-requirements}/bin/install-requirements
             echo "Pulumi shell created by https://github.com/vivekanandan-ks" | ${pkgs.cowsay}/bin/cowsay
-            #my custom fish shel prompt customized (coment below to use defualt bash)
+            #my custom fish shel prompt customized (comment below to use defualt bash)
             exec ${pkgs.fish}/bin/fish --init-command '
             function fish_prompt
                 # Get exit status of last command
