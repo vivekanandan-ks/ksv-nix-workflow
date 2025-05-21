@@ -54,8 +54,7 @@ jobs:
             --scanners vuln \
             --severity CRITICAL,HIGH \
             --exit-code 1 \
-            --ignore-unfixed \ 
-            --format sarif \
+            --ignore-unfixed --format sarif \
             --output trivy-reports/vuln.sarif \
             --timeout 5m \
             --cache-dir .trivycache \
@@ -71,8 +70,7 @@ jobs:
             --scanners secret \
             --severity CRITICAL,HIGH,MEDIUM \
             --exit-code 1 \
-            --ignore-unfixed \ 
-            --format sarif \
+            --ignore-unfixed --format sarif \
             --output trivy-reports/secret.sarif \
             --timeout 5m \
             --cache-dir .trivycache \
@@ -88,8 +86,7 @@ jobs:
             --scanners config \
             --severity CRITICAL,HIGH,MEDIUM \
             --exit-code 1 \
-            --ignore-unfixed \ 
-            --format sarif \
+            --ignore-unfixed --format sarif \
             --output trivy-reports/config.sarif \
             --timeout 5m \
             --cache-dir .trivycache \
