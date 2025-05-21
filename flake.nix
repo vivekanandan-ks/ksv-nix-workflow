@@ -4,28 +4,45 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
     flake-utils.url = "github:numtide/flake-utils";
+    gitignore = {
+      url = "github:hercules-ci/gitignore.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    pip2nix.url = "github:nix-community/pip2nix";
   };
 
-  outputs = { self, nixpkgs, flake-utils, ... }:
+  outputs = { self, nixpkgs, flake-utils, gitignore, pip2nix, ... }:
     flake-utils.lib.eachDefaultSystem (system:
       let
+        inherit (gitignore.lib) gitignoreSource;
         pkgs = import nixpkgs { inherit system; };
 
-        #for packages not in nixpkgs writre the requirements.txt and 
-        #then do the below command before starting the shell(nix develop)
-        #nix run github:nix-community/pip2nix -- generate -r requirements.txt
-        #packageOverrides = pkgs.callPackage ./python-packages.nix {};
-        #python = pkgs.python3.override { inherit packageOverrides; };
-        pythonEnv = pkgs.python3.withPackages (ps: with ps; [
-          #python packages from pip
-          fastapi
-          uvicorn
+        packageOverrides = pkgs.callPackage (gitignoreSource ./python-packages.nix) {};
+        python = pkgs.python313.override { inherit packageOverrides; };
+
+        pythonEnv = python.withPackages (p: with p; [
+            #from pypi (add only in requirements.txt)
+            import (gitignoreSource ./requirements.nix)
+            
+            #from nixpkgs (add here below)
+
         ]);
+
+        #generating dependencies from requirements.nix
+        install-requirements = pkgs.writeShellApplication {
+          name = "install-requirements";
+          runtimeInputs = [pip2nix.defaultPackage.${system}];
+          text = ''
+            #!/usr/bin/env ${pkgs.bash}/bin/bash
+            echo "Running install-requirements..."
+            ${pip2nix.defaultPackage.${system}}/bin/pip2nix generate -r ./requirements.nix
+          '';
+        };
 
         # The Python application
         myApp = pkgs.stdenv.mkDerivation {
           name = "my-python-app";
-          src = ./.; # Use the current directory as source
+          src = gitignoreSource ./.; # Use the current directory as source
           
           # Install phase: copy the Python files to the output
           installPhase = ''
@@ -46,6 +63,7 @@
           ];
 
           shellHook = ''
+              ${install-requirements}/bin/install-requirements
               echo -e "You have entered a shell environment created by https://github.com/vivekanandan-ks. \n\
               This shell environment sets up all the dependencies for the python project down to the libraries needed. \n\
               Enjoy coding :-) moooooooooooooooo" | ${pkgs.cowsay}/bin/cowsay | ${pkgs.lolcat}/bin/lolcat
@@ -67,6 +85,7 @@
         devShells.default = myShell;
 
         packages = { 
+          install-requirements = install-requirements;
           default = myApp;
           dockerLayered = dockerLayeredImage;
         };
