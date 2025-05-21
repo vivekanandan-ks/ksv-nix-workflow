@@ -48,7 +48,7 @@ jobs:
 # Scan
       - name: Trivy Vuln scan
         run: |
-            nix shell nixpkgs#trivy --command \
+            nix shell nixpkgs#trivy --inputs-from . --command \
             trivy image \
             --input result \
             --scanners vuln \
@@ -64,7 +64,7 @@ jobs:
     
       - name: Trivy Secret scan
         run: |
-            nix shell nixpkgs#trivy --command \
+            nix shell nixpkgs#trivy --inputs-from . --command \
             trivy image \
             --input result \
             --scanners secret \
@@ -80,7 +80,7 @@ jobs:
         
       - name: Trivy Config scan
         run: |
-            nix shell nixpkgs#trivy --command \
+            nix shell nixpkgs#trivy --inputs-from . --command \
             trivy image \
             --input result \
             --scanners config \
@@ -109,7 +109,7 @@ jobs:
       - name: Skopeo inspect image
         if: success() && github.event_name == 'push'
         run: |
-          nix shell nixpkgs#skopeo --command \
+          nix shell nixpkgs#skopeo --inputs-from . --command \
             skopeo inspect docker-archive:result > image_metadata.json
       - name: Check image size - fail if too large
         if: success() && github.event_name == 'push'
@@ -124,7 +124,7 @@ jobs:
       - name: image push to ghcr with skopeo
         if: success() && github.event_name == 'push'
         run: |
-              nix shell nixpkgs#skopeo --command \
+              nix shell nixpkgs#skopeo --inputs-from . --command \
                 skopeo copy \
                 --dest-creds ${{ github.actor }}:${{ secrets.GHCR_TOKEN }} \
                 --format=oci \
